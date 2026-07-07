@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Dashboard */
+
+body{
+    background:#f5f7fb;
+    font-family:Poppins,sans-serif;
+}
+
+.sidebar{
+    width:250px;
+    min-height:100vh;
+    background:linear-gradient(180deg,#0f9d69,#0a7d58);
+    color:white;
+}
+
+.logo-circle{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:rgba(255,255,255,.2);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+}
+
+.menu{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    color:white;
+    text-decoration:none;
+    padding:14px;
+    border-radius:12px;
+    margin-bottom:8px;
+}
+
+.menu:hover{
+    color:white;
+    background:rgba(255,255,255,.15);
+}
+
+.menu.active{
+    background:rgba(255,255,255,.2);
+}
+
+.user-card{
+    background:rgba(255,255,255,.15);
+    border-radius:12px;
+    color:white;
+    padding:15px;
+}
+
+.card-dashboard{
+    border:none;
+    border-radius:18px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
