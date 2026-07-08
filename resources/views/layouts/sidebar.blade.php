@@ -1,105 +1,100 @@
 <div class="sidebar d-flex flex-column">
 
-    <div class="p-4">
+    <div class="sidebar-header">
 
-        <div class="d-flex align-items-center">
+        <div class="logo">
 
-            <div class="logo-circle">
-
-                <i class="bi bi-book"></i>
-
+            <div class="logo-icon">
+                <i class="bi bi-mortarboard-fill"></i>
             </div>
 
-            <div class="ms-3">
-
-                <h5 class="mb-0 fw-bold text-white">
-                    SD Plus IGM
-                </h5>
-
-                <small class="text-white-50">
-                    Palembang
-                </small>
-
+            <div>
+                <h5>SD Plus IGM</h5>
+                <small>Palembang</small>
             </div>
 
         </div>
 
     </div>
 
-    <div class="px-3 flex-grow-1">
+    <div class="sidebar-menu">
 
-        <a href="/dashboard" class="menu active">
+        <a href="{{ route('dashboard') }}"
+            class="menu {{ request()->routeIs('dashboard') ? 'active' : '' }}">
 
-            <i class="bi bi-house"></i>
-
-            Beranda
+            <i class="bi bi-grid"></i>
+            <span>Beranda</span>
 
         </a>
 
-<a href="{{ route('guru.index') }}" class="menu">
-    <i class="bi bi-people"></i>
-    Data Guru
-</a>
+        <a href="{{ route('guru.index') }}"
+            class="menu {{ request()->routeIs('guru.*') ? 'active' : '' }}">
 
-        <a href="#" class="menu">
+            <i class="bi bi-people"></i>
+            <span>Data Guru</span>
+
+        </a>
+
+        <a href="#"
+            class="menu">
 
             <i class="bi bi-person-workspace"></i>
-
-            Data Tendik
-
-        </a>
-
-        <a href="#" class="menu">
-
-            <i class="bi bi-folder2"></i>
-
-            Data Induk
+            <span>Data Tendik</span>
 
         </a>
 
-        <a href="#" class="menu">
+        <a href="#"
+            class="menu">
+
+            <i class="bi bi-folder2-open"></i>
+            <span>Data Induk</span>
+
+        </a>
+
+        <a href="#"
+            class="menu">
 
             <i class="bi bi-file-earmark-text"></i>
-
-            Laporan
+            <span>Laporan</span>
 
         </a>
 
     </div>
 
-    <div class="sidebar-user">
+    <div class="sidebar-footer">
 
-   <div class="user-info">
+        <div class="profile">
 
-    <div class="user-avatar">
+            <div class="avatar">
 
-        <i class="bi bi-person-fill"></i>
+                {{ strtoupper(substr(Auth::user()->name,0,1)) }}
+
+            </div>
+
+            <div>
+
+                <strong>{{ Auth::user()->name }}</strong>
+
+                <small>Administrator</small>
+
+            </div>
+
+        </div>
+
+        <form method="POST" action="{{ route('logout') }}">
+
+            @csrf
+
+            <button class="logout-btn">
+
+                <i class="bi bi-box-arrow-right"></i>
+
+                Logout
+
+            </button>
+
+        </form>
 
     </div>
-
-    <div class="user-detail">
-
-        <strong>Ryuzen</strong>
-
-        <small>Administrator</small>
-
-    </div>
-
-</div>
-
-    <form method="POST" action="{{ route('logout') }}">
-        @csrf
-
-        <button type="submit" class="btn-logout">
-
-            <i class="bi bi-box-arrow-right"></i>
-
-            Logout
-
-        </button>
-
-    </form>
-
-</div>
 
 </div>
