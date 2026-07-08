@@ -2,60 +2,137 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Dashboard */
+/* ==========================
+   Dashboard
+========================== */
 
 body{
     background:#f5f7fb;
     font-family:Poppins,sans-serif;
 }
 
+/* ==========================
+   Sidebar
+========================== */
+
 .sidebar{
     width:250px;
     min-height:100vh;
     background:linear-gradient(180deg,#0f9d69,#0a7d58);
-    color:white;
+    color:#fff;
 }
 
 .logo-circle{
     width:45px;
     height:45px;
     border-radius:50%;
-    background:rgba(255,255,255,.2);
+    background:rgba(255,255,255,.18);
     display:flex;
     justify-content:center;
     align-items:center;
-    color:white;
+    color:#fff;
+    font-size:18px;
 }
 
 .menu{
     display:flex;
     align-items:center;
     gap:12px;
-    color:white;
+    color:#fff;
     text-decoration:none;
     padding:14px;
     border-radius:12px;
     margin-bottom:8px;
+    transition:.3s;
 }
 
 .menu:hover{
-    color:white;
     background:rgba(255,255,255,.15);
+    color:#fff;
 }
 
 .menu.active{
-    background:rgba(255,255,255,.2);
+    background:rgba(255,255,255,.22);
 }
 
-.user-card{
-    background:rgba(255,255,255,.15);
-    border-radius:12px;
-    color:white;
-    padding:15px;
-}
+/* ==========================
+   Dashboard Card
+========================== */
 
 .card-dashboard{
     border:none;
     border-radius:18px;
     box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+/* ==========================
+   Sidebar User
+========================== */
+
+.sidebar-user{
+    margin-top:auto;
+    padding:20px;
+    border-top:1px solid rgba(255,255,255,.15);
+}
+
+.user-info{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:15px;
+}
+
+.user-avatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:rgba(255,255,255,.18);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#fff;
+    font-size:18px;
+    font-weight:bold;
+    flex-shrink:0;
+}
+
+.user-detail{
+    display:flex;
+    flex-direction:column;
+}
+
+.user-detail strong{
+    color:#fff;
+    font-size:15px;
+    font-weight:600;
+    line-height:1.2;
+}
+
+.user-detail small{
+    color:rgba(255,255,255,.75);
+    font-size:12px;
+}
+
+/* ==========================
+   Logout Button
+========================== */
+
+.btn-logout{
+    width:100%;
+    border:none;
+    background:rgba(255,255,255,.12);
+    color:#fff;
+    padding:10px;
+    border-radius:10px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.btn-logout:hover{
+    background:#dc3545;
+    color:#fff;
+}
+
+.btn-logout i{
+    margin-right:8px;
 }

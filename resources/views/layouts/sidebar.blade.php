@@ -67,18 +67,39 @@
 
     </div>
 
-    <div class="p-3">
+    <div class="sidebar-user">
 
-        <div class="user-card">
+   <div class="user-info">
 
-            <strong>Tedy</strong>
+    <div class="user-avatar">
 
-            <br>
-
-            <small>Administrator</small>
-
-        </div>
+        <i class="bi bi-person-fill"></i>
 
     </div>
+
+    <div class="user-detail">
+
+        <strong>Ryuzen</strong>
+
+        <small>Administrator</small>
+
+    </div>
+
+</div>
+
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+
+        <button type="submit" class="btn-logout">
+
+            <i class="bi bi-box-arrow-right"></i>
+
+            Logout
+
+        </button>
+
+    </form>
+
+</div>
 
 </div>
