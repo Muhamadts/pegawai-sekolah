@@ -476,3 +476,96 @@ border-top-right-radius:14px;
 .icon-btn i{
     font-size:16px;
 }
+
+/* ===================================
+   DATA TENDIK
+=================================== */
+
+.tendik-card{
+
+    border:none;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+}
+
+.tendik-table{
+
+    margin:0;
+
+    border-collapse:separate;
+
+    border-spacing:0;
+
+}
+
+.tendik-table-head{
+
+    background:linear-gradient(
+        90deg,
+        #EC4899,
+        #F43F5E,
+        #DB2777
+    );
+
+}
+
+.tendik-table-head th{
+
+    background:transparent !important;
+
+    color:#fff;
+
+    border:none;
+
+    padding:16px 18px;
+
+    font-size:14px;
+
+    font-weight:600;
+
+}
+
+.tendik-table tbody td{
+
+    padding:16px 18px;
+
+    border-color:#f1f1f1;
+
+    vertical-align:middle;
+
+}
+
+.tendik-table tbody tr{
+
+    transition:.25s;
+
+}
+
+.tendik-table tbody tr:hover{
+
+    background:#fff5fa;
+
+}
+
+.tendik-table tbody tr:last-child td{
+
+    border-bottom:none;
+
+}
+
+.tendik-table th:first-child{
+
+    border-top-left-radius:14px;
+
+}
+
+.tendik-table th:last-child{
+
+    border-top-right-radius:14px;
+
+}

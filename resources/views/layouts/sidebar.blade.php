@@ -35,13 +35,14 @@
 
         </a>
 
-        <a href="#"
-            class="menu">
+        <a href="{{ route('tendik.index') }}"
+    class="menu {{ request()->routeIs('tendik.*') ? 'active' : '' }}">
 
-            <i class="bi bi-person-workspace"></i>
-            <span>Data Tendik</span>
+    <i class="bi bi-person-workspace"></i>
 
-        </a>
+    <span>Data Tendik</span>
+
+</a>
 
         <a href="#"
             class="menu">

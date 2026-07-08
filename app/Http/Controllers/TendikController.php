@@ -7,59 +7,82 @@ use Illuminate\Http\Request;
 
 class TendikController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $tendiks = Tendik::latest()->get();
+
+        return view('tendik.index', compact('tendiks'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('tendik.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'niy' => 'required|unique:tendiks,niy',
+            'nik_ktp' => 'nullable',
+            'nama' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            'jenis_kelamin' => 'required',
+            'agama' => 'required',
+            'status' => 'required',
+            'pendidikan' => 'required',
+            'jabatan' => 'required',
+            'mulai_bekerja' => 'required',
+            'alamat' => 'nullable',
+        ]);
+
+        Tendik::create($request->all());
+
+        return redirect()
+            ->route('tendik.index')
+            ->with('success', 'Data Tendik berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Tendik $tendik)
     {
-        //
+        return view('tendik.show', compact('tendik'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Tendik $tendik)
     {
-        //
+        return view('tendik.edit', compact('tendik'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Tendik $tendik)
     {
-        //
+        $request->validate([
+            'niy' => 'required|unique:tendiks,niy,' . $tendik->id,
+            'nik_ktp' => 'nullable',
+            'nama' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            'jenis_kelamin' => 'required',
+            'agama' => 'required',
+            'status' => 'required',
+            'pendidikan' => 'required',
+            'jabatan' => 'required',
+            'mulai_bekerja' => 'required',
+            'alamat' => 'nullable',
+        ]);
+
+        $tendik->update($request->all());
+
+        return redirect()
+            ->route('tendik.index')
+            ->with('success', 'Data Tendik berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Tendik $tendik)
     {
-        //
+        $tendik->delete();
+
+        return redirect()
+            ->route('tendik.index')
+            ->with('success', 'Data Tendik berhasil dihapus.');
     }
 }
