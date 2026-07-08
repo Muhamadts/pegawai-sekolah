@@ -44,13 +44,14 @@
 
 </a>
 
-        <a href="#"
-            class="menu">
+        <a href="{{ route('data-induk.index') }}"
+   class="menu {{ request()->routeIs('data-induk.*') ? 'active' : '' }}">
 
-            <i class="bi bi-folder2-open"></i>
-            <span>Data Induk</span>
+    <i class="bi bi-folder2-open"></i>
 
-        </a>
+    <span>Data Induk</span>
+
+</a>
 
         <a href="#"
             class="menu">

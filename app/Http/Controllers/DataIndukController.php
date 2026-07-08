@@ -2,64 +2,191 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DataInduk;
 use Illuminate\Http\Request;
+use App\Models\DataInduk;
+use App\Models\Guru;
+use App\Models\Tendik;
 
 class DataIndukController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan seluruh data guru dan tendik
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $guru = Guru::select(
+                'id',
+                'niy',
+                'nama',
+                'jabatan',
+                'jenis_kelamin'
+            )
+            ->get()
+            ->map(function ($item) {
+
+                return [
+
+                    'id' => $item->id,
+
+                    'tipe' => 'Guru',
+
+                    'niy' => $item->niy,
+
+                    'nama' => $item->nama,
+
+                    'jabatan' => $item->jabatan,
+
+                    'jenis_kelamin' => $item->jenis_kelamin,
+
+                ];
+
+            });
+
+        $tendik = Tendik::select(
+                'id',
+                'niy',
+                'nama',
+                'jabatan',
+                'jenis_kelamin'
+            )
+            ->get()
+            ->map(function ($item) {
+
+                return [
+
+                    'id' => $item->id,
+
+                    'tipe' => 'Tendik',
+
+                    'niy' => $item->niy,
+
+                    'nama' => $item->nama,
+
+                    'jabatan' => $item->jabatan,
+
+                    'jenis_kelamin' => $item->jenis_kelamin,
+
+                ];
+
+            });
+
+        $pegawai = $guru->merge($tendik);
+
+        if ($request->filled('jenis')) {
+
+            $pegawai = $pegawai->where('tipe', $request->jenis);
+
+        }
+
+        return view('data-induk.index', compact('pegawai'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Form tambah data induk
      */
     public function create()
     {
-        //
+        $gurus = Guru::orderBy('nama')->get();
+
+        $tendiks = Tendik::orderBy('nama')->get();
+
+        return view(
+            'data-induk.create',
+            compact(
+                'gurus',
+                'tendiks'
+            )
+        );
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Simpan data
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+
+            'jenis' => 'required',
+
+            'pegawai_id' => 'required',
+
+        ]);
+
+        DataInduk::create([
+
+            'jenis' => $request->jenis,
+
+            'pegawai_id' => $request->pegawai_id,
+
+        ]);
+
+        return redirect()
+            ->route('data-induk.index')
+            ->with('success', 'Data berhasil ditambahkan.');
     }
 
     /**
-     * Display the specified resource.
+     * Detail
      */
     public function show(DataInduk $dataInduk)
     {
-        //
+        return view('data-induk.show', compact('dataInduk'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Form edit
      */
     public function edit(DataInduk $dataInduk)
     {
-        //
+        $gurus = Guru::orderBy('nama')->get();
+
+        $tendiks = Tendik::orderBy('nama')->get();
+
+        return view(
+            'data-induk.edit',
+            compact(
+                'dataInduk',
+                'gurus',
+                'tendiks'
+            )
+        );
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update
      */
     public function update(Request $request, DataInduk $dataInduk)
     {
-        //
+        $request->validate([
+
+            'jenis' => 'required',
+
+            'pegawai_id' => 'required',
+
+        ]);
+
+        $dataInduk->update([
+
+            'jenis' => $request->jenis,
+
+            'pegawai_id' => $request->pegawai_id,
+
+        ]);
+
+        return redirect()
+            ->route('data-induk.index')
+            ->with('success', 'Data berhasil diperbarui.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Hapus
      */
     public function destroy(DataInduk $dataInduk)
     {
-        //
+        $dataInduk->delete();
+
+        return redirect()
+            ->route('data-induk.index')
+            ->with('success', 'Data berhasil dihapus.');
     }
 }
