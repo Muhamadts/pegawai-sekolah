@@ -22,18 +22,19 @@ class TendikController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'niy' => 'required|unique:tendiks,niy',
-            'nik_ktp' => 'nullable',
-            'nama' => 'required',
-            'tempat_lahir' => 'required',
-            'tanggal_lahir' => 'required',
-            'jenis_kelamin' => 'required',
-            'agama' => 'required',
-            'status' => 'required',
-            'pendidikan' => 'required',
-            'jabatan' => 'required',
-            'mulai_bekerja' => 'required',
-            'alamat' => 'nullable',
+    'niy' => 'required|unique:tendiks',
+    'nik_ktp' => 'nullable',
+    'nama' => 'required',
+    'tempat_lahir' => 'required',
+    'tanggal_lahir' => 'required',
+    'jenis_kelamin' => 'required',
+    'agama' => 'required',
+    'status' => 'required',
+    'golongan' => 'nullable',
+    'pendidikan' => 'required',
+    'jabatan' => 'required',
+    'mulai_bekerja' => 'required',
+    'alamat' => 'nullable',
         ]);
 
         Tendik::create($request->all());

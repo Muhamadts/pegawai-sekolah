@@ -178,7 +178,7 @@
 
                     <div class="col-6">
 
-                        <a href="#" class="text-decoration-none">
+                        <a href="{{ route('tendik.create') }}" class="text-decoration-none">
 
                             <div class="quick-card quick-pink">
 
@@ -198,7 +198,7 @@
 
                     <div class="col-6">
 
-                        <a href="#" class="text-decoration-none">
+                        <a href="{{ route('data-induk.index') }}" class="text-decoration-none">
 
                             <div class="quick-card quick-blue">
 
@@ -257,85 +257,66 @@
                 Data Terbaru
             </h5>
 
-            @php
-                $dummy = [
-                    [
-                        'inisial' => 'N',
-                        'nama' => 'Nyimas Fatimah',
-                        'jabatan' => 'Tendik - Staff TU',
-                        'badge' => 'Tendik',
-                        'warna' => 'tendik'
-                    ],
-                    [
-                        'inisial' => 'W',
-                        'nama' => 'Wenny Siswanti, A.Md',
-                        'jabatan' => 'Tendik - Staff TU',
-                        'badge' => 'Tendik',
-                        'warna' => 'tendik'
-                    ],
-                    [
-                        'inisial' => 'A',
-                        'nama' => 'Al Hikmah, S.Pd',
-                        'jabatan' => 'Tendik - Kepala TU',
-                        'badge' => 'Tendik',
-                        'warna' => 'tendik'
-                    ],
-                    [
-                        'inisial' => 'D',
-                        'nama' => 'Dovie Dwi Pramita, S.Pd',
-                        'jabatan' => 'Guru - Waka Sapra & Kel. Guru PJOK',
-                        'badge' => 'Guru',
-                        'warna' => 'guru'
-                    ],
-                    [
-                        'inisial' => 'D',
-                        'nama' => 'Dara Hapsari Prasetyorini, S.Pd',
-                        'jabatan' => 'Guru - Humas/Guru Kelas',
-                        'badge' => 'Guru',
-                        'warna' => 'guru'
-                    ]
-                ];
-            @endphp
 
-            @foreach($dummy as $item)
+            @forelse($latestData as $item)
 
-                <div class="recent-item">
+<div class="recent-item">
 
-                    <div class="recent-left">
+    <div class="recent-left">
 
-                        <div class="recent-avatar {{ $item['warna'] }}">
+        <div class="recent-avatar {{ $item['warna'] }}">
 
-                            {{ $item['inisial'] }}
+            {{ $item['inisial'] }}
 
-                        </div>
+        </div>
 
-                        <div>
+        <div>
 
-                            <h6>{{ $item['nama'] }}</h6>
+            <h6 class="mb-0">
 
-                            <small>{{ $item['jabatan'] }}</small>
+                {{ $item['nama'] }}
 
-                        </div>
+            </h6>
 
-                    </div>
+            <small>
 
-                    @if($item['badge'] == 'Guru')
+                {{ $item['badge'] }} - {{ $item['jabatan'] }}
 
-                        <span class="badge-guru">
-                            Guru
-                        </span>
+            </small>
 
-                    @else
+        </div>
 
-                        <span class="badge-tendik">
-                            Tendik
-                        </span>
+    </div>
 
-                    @endif
+    @if($item['badge'] == 'Guru')
 
-                </div>
+        <span class="badge-guru">
 
-            @endforeach
+            Guru
+
+        </span>
+
+    @else
+
+        <span class="badge-tendik">
+
+            Tendik
+
+        </span>
+
+    @endif
+
+</div>
+
+@empty
+
+<div class="text-center py-5 text-muted">
+
+    Belum ada data pegawai.
+
+</div>
+
+@endforelse
 
         </div>
 

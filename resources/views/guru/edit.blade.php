@@ -206,11 +206,19 @@
 
             </div>
 
-            <button class="btn btn-success">
+           <div class="text-end">
 
-                Update Data
+    <button
+        type="submit"
+        class="btn btn-success">
 
-            </button>
+        <i class="bi bi-check-lg"></i>
+
+        Update Data
+
+    </button>
+
+</div>
 
         </form>
 
