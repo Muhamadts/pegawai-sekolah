@@ -53,13 +53,13 @@
 
 </a>
 
-        <a href="#"
-            class="menu">
+       <a href="{{ route('laporan.index') }}"
+    class="menu">
 
-            <i class="bi bi-file-earmark-text"></i>
-            <span>Laporan</span>
+    <i class="bi bi-file-earmark-text"></i>
+    <span>Laporan</span>
 
-        </a>
+</a>
 
     </div>
 

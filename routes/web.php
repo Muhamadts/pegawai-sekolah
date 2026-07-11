@@ -6,6 +6,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\TendikController;
 use App\Http\Controllers\DataIndukController;
+use App\Http\Controllers\LaporanController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +34,10 @@ Route::middleware(['auth'])->group(function () {
     // CRUD Data Induk
     Route::resource('data-induk', DataIndukController::class);
 
+    Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
+    
+    Route::get('/laporan/pdf', [LaporanController::class, 'pdf'])
+    ->name('laporan.pdf');
 });
 
 // Authentication Route

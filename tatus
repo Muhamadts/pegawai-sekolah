@@ -1,0 +1,5 @@
+[33mf9dbed2[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m feat: add tendik CRUD, dashboard statistics, and UI improvements
+[33ma573b14[m[33m ([m[1;31morigin/Dimas[m[33m, [m[1;32mDimas[m[33m)[m Menambahkan CRUD Data Tendik dan Data Induk
+[33maecb2a9[m feat: implement CRUD tendik module
+[33mbd423e5[m feat: complete dashboard UI and implement guru CRUD
+[33mca54e8a[m Merge pull request #2 from Muhamadts/Dimas
