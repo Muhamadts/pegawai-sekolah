@@ -109,7 +109,7 @@
 
             <p class="mb-0">
 
-                Jl. Pendidikan No.1 Palembang
+                Jalan Kol. H. Barlian RT.37 RW.11 Km.10 Kel.Karya Baru Kec.Alang-Alang Lebar Palembang 
 
             </p>
 

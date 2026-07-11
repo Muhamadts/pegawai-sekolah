@@ -111,7 +111,7 @@ table td{
 
     <p>
 
-        Jl. Pendidikan No.1 Palembang
+        Jalan Kol. H. Barlian RT.37 RW.11 Km.10 Kel.Karya Baru Kec.Alang-Alang Lebar Palembang 
 
     </p>
 
@@ -158,13 +158,6 @@ LAPORAN DATA INDUK
 </h3>
 
 @endif
-
-<p>
-
-Tanggal Cetak :
-{{ date('d-m-Y') }}
-
-</p>
 
 </div>
 
@@ -300,7 +293,11 @@ Palembang,
 {{ date('d F Y') }}
 
 </p>
+<p>
 
+Kepala Sekolah
+
+</p>
 <br><br><br>
 
 <p>
@@ -310,12 +307,6 @@ Palembang,
 Mefi Laranti, S.Pd
 
 </b>
-
-</p>
-
-<p>
-
-Kepala Sekolah
 
 </p>
 
