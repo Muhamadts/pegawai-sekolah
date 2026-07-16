@@ -1,9 +1,61 @@
-<div class="sidebar d-flex flex-column">
+@php
+    $user = Auth::user();
+
+    $role = $user->role ?? 'guru_tendik';
+
+    $roleLabel = [
+        'admin' => 'Administrator',
+        'guru_tendik' => 'Guru dan Tendik',
+        'kepsek' => 'Kepala Sekolah',
+    ][$role] ?? 'Pengguna';
+
+    $menus = [
+        [
+            'label' => 'Beranda',
+            'route' => 'dashboard',
+            'active' => 'dashboard',
+            'icon' => 'bi-grid',
+            'roles' => ['admin'],
+        ],
+        [
+            'label' => 'Data Guru',
+            'route' => 'guru.index',
+            'active' => 'guru.*',
+            'icon' => 'bi-people',
+            'roles' => ['admin', 'guru_tendik'],
+        ],
+        [
+            'label' => 'Data Tendik',
+            'route' => 'tendik.index',
+            'active' => 'tendik.*',
+            'icon' => 'bi-person-workspace',
+            'roles' => ['admin', 'guru_tendik'],
+        ],
+        [
+            'label' => 'Data Induk',
+            'route' => 'data-induk.index',
+            'active' => 'data-induk.*',
+            'icon' => 'bi-folder2-open',
+            'roles' => ['admin', 'guru_tendik'],
+        ],
+        [
+            'label' => 'Laporan',
+            'route' => 'laporan.index',
+            'active' => 'laporan.*',
+            'icon' => 'bi-file-earmark-text',
+            'roles' => ['admin', 'kepsek'],
+        ],
+    ];
+@endphp
+
+<div class="sidebar d-flex flex-column" id="appSidebar">
+
+    <button type="button" class="mobile-sidebar-close" id="mobileSidebarClose">
+        <i class="bi bi-x-lg"></i>
+    </button>
 
     <div class="sidebar-header">
-
         <div class="logo">
-
             <div class="logo-icon">
                 <i class="bi bi-mortarboard-fill"></i>
             </div>
@@ -12,54 +64,22 @@
                 <h5>SD Plus IGM</h5>
                 <small>Palembang</small>
             </div>
-
         </div>
-
     </div>
 
     <div class="sidebar-menu">
 
-        <a href="{{ route('dashboard') }}"
-            class="menu {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+        @foreach ($menus as $menu)
+            @if (in_array($role, $menu['roles'], true))
+                <a href="{{ route($menu['route']) }}"
+                   class="menu {{ request()->routeIs($menu['active']) ? 'active' : '' }}">
 
-            <i class="bi bi-grid"></i>
-            <span>Beranda</span>
+                    <i class="bi {{ $menu['icon'] }}"></i>
+                    <span>{{ $menu['label'] }}</span>
 
-        </a>
-
-        <a href="{{ route('guru.index') }}"
-            class="menu {{ request()->routeIs('guru.*') ? 'active' : '' }}">
-
-            <i class="bi bi-people"></i>
-            <span>Data Guru</span>
-
-        </a>
-
-        <a href="{{ route('tendik.index') }}"
-    class="menu {{ request()->routeIs('tendik.*') ? 'active' : '' }}">
-
-    <i class="bi bi-person-workspace"></i>
-
-    <span>Data Tendik</span>
-
-</a>
-
-        <a href="{{ route('data-induk.index') }}"
-   class="menu {{ request()->routeIs('data-induk.*') ? 'active' : '' }}">
-
-    <i class="bi bi-folder2-open"></i>
-
-    <span>Data Induk</span>
-
-</a>
-
-       <a href="{{ route('laporan.index') }}"
-    class="menu">
-
-    <i class="bi bi-file-earmark-text"></i>
-    <span>Laporan</span>
-
-</a>
+                </a>
+            @endif
+        @endforeach
 
     </div>
 
@@ -68,33 +88,23 @@
         <div class="profile">
 
             <div class="avatar">
-
-                {{ strtoupper(substr(Auth::user()->name,0,1)) }}
-
+                {{ strtoupper(substr($user->name, 0, 1)) }}
             </div>
 
-            <div>
-
-                <strong>{{ Auth::user()->name }}</strong>
-
-                <small>Administrator</small>
-
+            <div class="profile-text">
+                <strong>{{ $user->name }}</strong>
+                <small>{{ $roleLabel }}</small>
             </div>
 
         </div>
 
         <form method="POST" action="{{ route('logout') }}">
-
             @csrf
 
-            <button class="logout-btn">
-
+            <button type="submit" class="logout-btn">
                 <i class="bi bi-box-arrow-right"></i>
-
                 Logout
-
             </button>
-
         </form>
 
     </div>

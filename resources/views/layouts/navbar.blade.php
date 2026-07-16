@@ -1,13 +1,27 @@
-<nav class="navbar bg-white shadow-sm px-4 py-3">
+@php
+    $title = 'Dashboard';
 
-    <div>
+    if (request()->routeIs('guru.*')) {
+        $title = 'Data Guru';
+    } elseif (request()->routeIs('tendik.*')) {
+        $title = 'Data Tendik';
+    } elseif (request()->routeIs('data-induk.*')) {
+        $title = 'Data Induk';
+    } elseif (request()->routeIs('laporan.*')) {
+        $title = 'Laporan';
+    }
+@endphp
 
-        <h5 class="fw-bold mb-0">
+<nav class="app-navbar">
 
-            Dashboard
+    <button type="button" class="mobile-menu-btn" id="mobileMenuButton">
+        <i class="bi bi-list"></i>
+    </button>
 
+    <div class="app-navbar-text">
+        <h5 class="app-navbar-title">
+            {{ $title }}
         </h5>
-
     </div>
 
 </nav>

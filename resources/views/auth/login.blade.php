@@ -1,194 +1,162 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Login | Sistem Informasi Kepegawaian</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="min-h-screen bg-gradient-to-br from-emerald-700 via-green-600 to-green-500 flex items-center justify-center">
+<body class="login-auth-page">
+    <main class="login-page">
 
-<div class="w-full max-w-lg px-6">
+        <div class="login-card">
 
-    <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
+            <div class="login-header">
+                <div class="login-icon">
+                    SI
+                </div>
 
-        <!-- Header -->
-        <div class="bg-gradient-to-r from-emerald-700 to-green-600 py-12 text-center">
+                <h1 class="login-title">
+                    SD Plus IGM Palembang
+                </h1>
 
-            <div class="w-24 h-24 rounded-full bg-white/20 mx-auto flex items-center justify-center text-5xl text-white mb-5">
+                <p class="login-subtitle">
+                    Sistem Informasi Kepegawaian
+                </p>
+            </div>
 
-                📖
+            <div class="login-body">
+
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+
+                    <div class="login-form-group">
+                        <label for="email" class="login-form-label">
+                            Email
+                        </label>
+
+                        <input
+                            id="email"
+                            type="email"
+                            name="email"
+                            value="{{ old('email') }}"
+                            required
+                            autofocus
+                            autocomplete="username"
+                            placeholder="Masukkan email"
+                            class="login-form-control">
+
+                        <x-input-error :messages="$errors->get('email')" class="login-input-error"/>
+                    </div>
+
+                    <div class="login-form-group">
+                        <label for="password" class="login-form-label">
+                            Password
+                        </label>
+
+                        <div class="login-password-field">
+                            <input
+                                id="password"
+                                type="password"
+                                name="password"
+                                required
+                                autocomplete="current-password"
+                                placeholder="Masukkan password"
+                                class="login-form-control">
+
+                            <button
+                                type="button"
+                                class="login-password-toggle"
+                                id="togglePassword"
+                                aria-label="Tampilkan password">
+                                <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.25 12s3.75-6.75 9.75-6.75S21.75 12 21.75 12 18 18.75 12 18.75 2.25 12 2.25 12Z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15.25A3.25 3.25 0 1 0 12 8.75a3.25 3.25 0 0 0 0 6.5Z" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <x-input-error :messages="$errors->get('password')" class="login-input-error"/>
+                    </div>
+
+                    <div class="login-form-group">
+                        <label for="role" class="login-form-label">
+                            Role / Jabatan
+                        </label>
+
+                        <select
+                            id="role"
+                            name="role"
+                            required
+                            class="login-form-control login-select">
+
+                            <option value="">-- Pilih Role --</option>
+
+                            <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>
+                                Administrator
+                            </option>
+
+                            <option value="guru_tendik" {{ old('role') == 'guru_tendik' ? 'selected' : '' }}>
+                                Guru dan Tenaga Kependidikan
+                            </option>
+
+                            <option value="kepsek" {{ old('role') == 'kepsek' ? 'selected' : '' }}>
+                                Kepala Sekolah
+                            </option>
+
+                        </select>
+
+                        <x-input-error :messages="$errors->get('role')" class="login-input-error"/>
+                    </div>
+
+                    <div class="login-options">
+                        <label class="login-remember-label">
+                            <input type="checkbox" name="remember">
+                            <span>Remember Me</span>
+                        </label>
+
+                        @if(Route::has('password.request'))
+                            <a href="{{ route('password.request') }}" class="login-forgot-link">
+                                Lupa Password?
+                            </a>
+                        @endif
+                    </div>
+
+                    <button type="submit" class="login-button">
+                        Login
+                    </button>
+                </form>
 
             </div>
 
-            <h1 class="text-4xl font-bold tracking-wide text-white">
-
-                SD Plus IGM Palembang
-
-            </h1>
-
-            <p class="text-green-100 mt-3 text-lg">
-
-                Sistem Informasi Kepegawaian
-
-            </p>
+            <div class="login-footer">
+                &copy; {{ date('Y') }} SD Plus IGM Palembang
+            </div>
 
         </div>
 
-        <!-- Form -->
-        <div class="p-10">
+    </main>
 
-            <form method="POST" action="{{ route('login') }}">
+    <script>
+        const passwordInput = document.getElementById('password');
+        const togglePassword = document.getElementById('togglePassword');
+        const eyeIcon = document.getElementById('eyeIcon');
 
-                @csrf
+        togglePassword.addEventListener('click', function () {
+            const isPassword = passwordInput.type === 'password';
 
-                <!-- Email -->
-                <div class="mb-6">
+            passwordInput.type = isPassword ? 'text' : 'password';
+            togglePassword.setAttribute(
+                'aria-label',
+                isPassword ? 'Sembunyikan password' : 'Tampilkan password'
+            );
 
-                    <label class="block mb-2 text-sm font-semibold text-gray-700">
-
-                        Email
-
-                    </label>
-
-                    <input
-                        type="email"
-                        name="email"
-                        value="{{ old('email') }}"
-                        required
-                        autofocus
-                        placeholder="Masukkan email"
-                        class="w-full h-12 rounded-xl border-gray-300 px-4 focus:border-green-600 focus:ring-green-600">
-
-                    <x-input-error
-                        :messages="$errors->get('email')"
-                        class="mt-2"/>
-
-                </div>
-
-                <!-- Password -->
-                <div class="mb-6">
-
-                    <label class="block mb-2 text-sm font-semibold text-gray-700">
-
-                        Password
-
-                    </label>
-
-                    <input
-                        type="password"
-                        name="password"
-                        required
-                        placeholder="Masukkan password"
-                        class="w-full h-12 rounded-xl border-gray-300 px-4 focus:border-green-600 focus:ring-green-600">
-
-                    <x-input-error
-                        :messages="$errors->get('password')"
-                        class="mt-2"/>
-
-                </div>
-            <!-- Role / Jabatan -->
-<div class="mb-6">
-
-    <label class="block mb-2 text-sm font-semibold text-gray-700">
-        Role / Jabatan
-    </label>
-
-    <select
-        name="role"
-        required
-        class="w-full h-12 rounded-xl border-gray-300 px-4 focus:border-green-600 focus:ring-green-600">
-
-        <option value="">-- Pilih Role --</option>
-
-        <option value="admin"
-            {{ old('role') == 'admin' ? 'selected' : '' }}>
-            Administrator
-        </option>
-
-        <option value="kepala_sekolah"
-            {{ old('role') == 'kepala_sekolah' ? 'selected' : '' }}>
-            Kepala Sekolah
-        </option>
-
-        <option value="guru"
-            {{ old('role') == 'guru' ? 'selected' : '' }}>
-            Guru
-        </option>
-
-        <option value="tendik"
-            {{ old('role') == 'tendik' ? 'selected' : '' }}>
-            Tenaga Kependidikan
-        </option>
-
-    </select>
-
-    @error('role')
-        <p class="mt-2 text-sm text-red-600">
-            {{ $message }}
-        </p>
-    @enderror
-
-</div>
-
-                <!-- Remember -->
-                <div class="flex justify-between items-center mb-8">
-
-                    <label class="flex items-center">
-
-                        <input
-                            type="checkbox"
-                            name="remember"
-                            class="rounded border-gray-300 text-green-600">
-
-                        <span class="ml-2 text-sm text-gray-600">
-
-                            Remember Me
-
-                        </span>
-
-                    </label>
-
-                    @if(Route::has('password.request'))
-
-                        <a href="{{ route('password.request') }}"
-                           class="text-sm text-green-600 hover:underline">
-
-                            Lupa Password?
-
-                        </a>
-
-                    @endif
-
-                </div>
-
-                <!-- Button -->
-                <button
-                    type="submit"
-                    class="w-full h-12 rounded-xl bg-green-600 hover:bg-green-700 text-white font-semibold text-lg shadow-md transition-all duration-300">
-
-                    Login
-
-                </button>
-
-            </form>
-
-        </div>
-
-        <!-- Footer -->
-        <div class="border-t py-5 text-center text-sm text-gray-500">
-
-            © {{ date('Y') }} SD Plus IGM Palembang
-
-        </div>
-
-    </div>
-
-</div>
-
+            eyeIcon.innerHTML = isPassword
+                ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3l18 18" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.58 10.58A2 2 0 0 0 13.42 13.42" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.88 4.42A10.86 10.86 0 0 1 12 4.25c6 0 9.75 6.75 9.75 6.75a18.2 18.2 0 0 1-3.07 3.78" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6.61 6.61C3.83 8.5 2.25 12 2.25 12S6 18.75 12 18.75c1.31 0 2.52-.32 3.61-.84" />'
+                : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.25 12s3.75-6.75 9.75-6.75S21.75 12 21.75 12 18 18.75 12 18.75 2.25 12 2.25 12Z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15.25A3.25 3.25 0 1 0 12 8.75a3.25 3.25 0 0 0 0 6.5Z" />';
+        });
+    </script>
 </body>
 </html>
