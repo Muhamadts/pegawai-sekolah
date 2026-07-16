@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Guru;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class GuruController extends Controller
 {
@@ -21,32 +22,39 @@ class GuruController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'niy'            => 'required|unique:gurus',
-            'nik_ktp'        => 'nullable',
-            'nama'           => 'required',
-            'tempat_lahir'   => 'required',
-            'tanggal_lahir'  => 'required',
-            'jenis_kelamin'  => 'required',
-            'agama'          => 'required',
-            'status'         => 'required',
-            'golongan'       => 'nullable',
-            'pendidikan'     => 'required',
-            'jabatan'        => 'required',
+        $validated = $request->validate([
+            'niy' => 'required|unique:gurus',
+            'nik_ktp' => 'nullable',
+            'nama' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            'jenis_kelamin' => 'required',
+            'agama' => 'required',
+            'status' => 'required',
+            'golongan' => 'nullable',
+            'pendidikan' => 'required',
+            'jabatan' => 'required',
             'mulai_mengajar' => 'required',
-            'alamat'         => 'nullable',
+            'alamat' => 'nullable',
+            'file_sk.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+            'file_sertifikat.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
         ]);
 
-        Guru::create($request->all());
+        $validated['file_sk'] = $this->uploadFiles($request, 'file_sk', 'dokumen/guru/sk');
+        $validated['file_sertifikat'] = $this->uploadFiles($request, 'file_sertifikat', 'dokumen/guru/sertifikat');
+
+        Guru::create($validated);
 
         return redirect()
             ->route('guru.index')
             ->with('success', 'Data guru berhasil ditambahkan.');
     }
+
     public function show(Guru $guru)
     {
         return view('guru.show', compact('guru'));
     }
+
     public function edit(Guru $guru)
     {
         return view('guru.edit', compact('guru'));
@@ -54,23 +62,35 @@ class GuruController extends Controller
 
     public function update(Request $request, Guru $guru)
     {
-        $request->validate([
-            'niy'            => 'required|unique:gurus,niy,' . $guru->id,
-            'nik_ktp'        => 'nullable',
-            'nama'           => 'required',
-            'tempat_lahir'   => 'required',
-            'tanggal_lahir'  => 'required',
-            'jenis_kelamin'  => 'required',
-            'agama'          => 'required',
-            'status'         => 'required',
-            'golongan'       => 'nullable',
-            'pendidikan'     => 'required',
-            'jabatan'        => 'required',
+        $validated = $request->validate([
+            'niy' => 'required|unique:gurus,niy,' . $guru->id,
+            'nik_ktp' => 'nullable',
+            'nama' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            'jenis_kelamin' => 'required',
+            'agama' => 'required',
+            'status' => 'required',
+            'golongan' => 'nullable',
+            'pendidikan' => 'required',
+            'jabatan' => 'required',
             'mulai_mengajar' => 'required',
-            'alamat'         => 'nullable',
+            'alamat' => 'nullable',
+            'file_sk.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+            'file_sertifikat.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
         ]);
 
-        $guru->update($request->all());
+        $validated['file_sk'] = array_merge(
+            $guru->file_sk ?? [],
+            $this->uploadFiles($request, 'file_sk', 'dokumen/guru/sk')
+        );
+
+        $validated['file_sertifikat'] = array_merge(
+            $guru->file_sertifikat ?? [],
+            $this->uploadFiles($request, 'file_sertifikat', 'dokumen/guru/sertifikat')
+        );
+
+        $guru->update($validated);
 
         return redirect()
             ->route('guru.index')
@@ -79,10 +99,31 @@ class GuruController extends Controller
 
     public function destroy(Guru $guru)
     {
+        $this->deleteFiles($guru->file_sk ?? []);
+        $this->deleteFiles($guru->file_sertifikat ?? []);
+
         $guru->delete();
 
         return redirect()
             ->route('guru.index')
             ->with('success', 'Data guru berhasil dihapus.');
+    }
+
+    private function uploadFiles(Request $request, string $field, string $folder): array
+    {
+        if (! $request->hasFile($field)) {
+            return [];
+        }
+
+        return collect($request->file($field))
+            ->map(fn ($file) => $file->store($folder, 'public'))
+            ->toArray();
+    }
+
+    private function deleteFiles(array $files): void
+    {
+        foreach ($files as $file) {
+            Storage::disk('public')->delete($file);
+        }
     }
 }

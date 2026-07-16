@@ -57,7 +57,7 @@
     <div class="sidebar-header">
         <div class="logo">
             <div class="logo-icon">
-                <i class="bi bi-mortarboard-fill"></i>
+                 <img src="{{ asset('images/logo.jpg') }}" alt="Logo SD Plus IGM">
             </div>
 
             <div>

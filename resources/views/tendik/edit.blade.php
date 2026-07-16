@@ -30,7 +30,7 @@
 
     <div class="card-body">
 
-        <form action="{{ route('tendik.update',$tendik->id) }}" method="POST">
+        <form action="{{ route('tendik.update',$tendik->id) }}" method="POST" enctype="multipart/form-data">
 
             @csrf
             @method('PUT')
@@ -251,7 +251,65 @@
                         class="form-control">{{ old('alamat',$tendik->alamat) }}</textarea>
 
                 </div>
+                @if(!empty($tendik->file_sk))
+    <div class="col-md-6 mb-3">
+        <label class="form-label fw-bold">File SK Saat Ini</label>
 
+        @foreach($tendik->file_sk as $file)
+            <div>
+                <a href="{{ asset('storage/' . $file) }}" target="_blank">
+                    <i class="bi bi-file-earmark-text"></i>
+                    {{ basename($file) }}
+                </a>
+            </div>
+        @endforeach
+    </div>
+@endif
+
+@if(!empty($tendik->file_sertifikat))
+    <div class="col-md-6 mb-3">
+        <label class="form-label fw-bold">File Piagam / Sertifikat Saat Ini</label>
+
+        @foreach($tendik->file_sertifikat as $file)
+            <div>
+                <a href="{{ asset('storage/' . $file) }}" target="_blank">
+                    <i class="bi bi-award"></i>
+                    {{ basename($file) }}
+                </a>
+            </div>
+        @endforeach
+    </div>
+@endif
+
+<div class="col-md-6 mb-3">
+    <label class="form-label">Tambah File SK Baru</label>
+
+    <input
+        type="file"
+        name="file_sk[]"
+        class="form-control"
+        multiple
+        accept=".pdf,.jpg,.jpeg,.png">
+
+    <small class="text-muted">
+        File baru akan ditambahkan tanpa menghapus file lama.
+    </small>
+</div>
+
+<div class="col-md-6 mb-3">
+    <label class="form-label">Tambah File Piagam / Sertifikat Baru</label>
+
+    <input
+        type="file"
+        name="file_sertifikat[]"
+        class="form-control"
+        multiple
+        accept=".pdf,.jpg,.jpeg,.png">
+
+    <small class="text-muted">
+        File baru akan ditambahkan tanpa menghapus file lama.
+    </small>
+</div>
             </div>
 
             <div class="text-end">

@@ -207,7 +207,8 @@ data-bs-dismiss="modal"></button>
 
 <form
 action="{{ route('guru.store') }}"
-method="POST">
+method="POST"
+enctype="multipart/form-data">
 
 @csrf
 
@@ -482,6 +483,35 @@ rows="3"
 class="form-control"></textarea>
 
 </div>
+<div class="col-md-6 mb-3">
+    <label class="form-label">File SK</label>
+
+    <input
+        type="file"
+        name="file_sk[]"
+        class="form-control"
+        multiple
+        accept=".pdf,.jpg,.jpeg,.png">
+
+    <small class="text-muted">
+        Bisa upload beberapa file. Format PDF, JPG, JPEG, PNG. Maksimal 5MB per file.
+    </small>
+</div>
+
+<div class="col-md-6 mb-3">
+    <label class="form-label">File Piagam / Sertifikat</label>
+
+    <input
+        type="file"
+        name="file_sertifikat[]"
+        class="form-control"
+        multiple
+        accept=".pdf,.jpg,.jpeg,.png">
+
+    <small class="text-muted">
+        Bisa upload beberapa file. Format PDF, JPG, JPEG, PNG. Maksimal 5MB per file.
+    </small>
+</div>
 
 </div>
 
@@ -495,6 +525,33 @@ data-bs-dismiss="modal">
 Batal
 
 </button>
+<div class="col-md-6 mb-3">
+    <label class="form-label">File SK</label>
+    <input
+        type="file"
+        name="file_sk[]"
+        class="form-control"
+        multiple
+        accept=".pdf,.jpg,.jpeg,.png">
+
+    <small class="text-muted">
+        Bisa upload beberapa file. Format: PDF, JPG, JPEG, PNG. Maksimal 5MB/file.
+    </small>
+</div>
+
+<div class="col-md-6 mb-3">
+    <label class="form-label">File Piagam / Sertifikat</label>
+    <input
+        type="file"
+        name="file_sertifikat[]"
+        class="form-control"
+        multiple
+        accept=".pdf,.jpg,.jpeg,.png">
+
+    <small class="text-muted">
+        Bisa upload beberapa file. Format: PDF, JPG, JPEG, PNG. Maksimal 5MB/file.
+    </small>
+</div>
 
 <button
 class="btn btn-success">

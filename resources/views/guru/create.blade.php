@@ -30,8 +30,7 @@
 
     <div class="card-body">
 
-        <form action="{{ route('guru.store') }}" method="POST">
-
+<form action="{{ route('guru.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="row">
@@ -199,7 +198,35 @@
                         class="form-control"></textarea>
 
                 </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">File SK</label>
 
+                    <input
+                        type="file"
+                        name="file_sk[]"
+                        class="form-control"
+                        multiple
+                        accept=".pdf,.jpg,.jpeg,.png">
+
+                    <small class="text-muted">
+                        Bisa upload beberapa file. Format PDF, JPG, JPEG, PNG. Maksimal 5MB per file.
+                    </small>
+                            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">File Piagam / Sertifikat</label>
+
+                <input
+                    type="file"
+                    name="file_sertifikat[]"
+                    class="form-control"
+                    multiple
+                    accept=".pdf,.jpg,.jpeg,.png">
+
+                <small class="text-muted">
+                    Bisa upload beberapa file. Format PDF, JPG, JPEG, PNG. Maksimal 5MB per file.
+                </small>
+            </div>
             </div>
 
             <button

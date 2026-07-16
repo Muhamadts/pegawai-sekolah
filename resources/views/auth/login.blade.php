@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | Sistem Informasi Kepegawaian</title>
-
+    <link rel="icon" type="image/jpg" href="{{ asset('images/logo.jpg') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -15,7 +15,7 @@
 
             <div class="login-header">
                 <div class="login-icon">
-                    SI
+                    <img src="{{ asset('images/logo.jpg') }}" alt="Logo SD Plus IGM">
                 </div>
 
                 <h1 class="login-title">

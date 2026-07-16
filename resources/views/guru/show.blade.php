@@ -96,6 +96,35 @@
                 <label class="fw-bold">Alamat</label>
                 <div>{{ $guru->alamat }}</div>
             </div>
+            <div class="col-md-6 mb-3">
+    <label class="fw-bold">File SK</label>
+
+    @forelse($guru->file_sk ?? [] as $file)
+        <div>
+            <a href="{{ asset('storage/' . $file) }}" target="_blank">
+                <i class="bi bi-file-earmark-text"></i>
+                {{ basename($file) }}
+            </a>
+        </div>
+    @empty
+        <div>-</div>
+    @endforelse
+</div>
+
+<div class="col-md-6 mb-3">
+    <label class="fw-bold">File Piagam / Sertifikat</label>
+
+    @forelse($guru->file_sertifikat ?? [] as $file)
+        <div>
+            <a href="{{ asset('storage/' . $file) }}" target="_blank">
+                <i class="bi bi-award"></i>
+                {{ basename($file) }}
+            </a>
+        </div>
+    @empty
+        <div>-</div>
+    @endforelse
+</div>
 
         </div>
 

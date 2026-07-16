@@ -23,5 +23,12 @@ class Guru extends Model
         'jabatan',
         'mulai_mengajar',
         'alamat',
+        'file_sk',
+        'file_sertifikat',
+    ];
+
+    protected $casts = [
+        'file_sk' => 'array',
+        'file_sertifikat' => 'array',
     ];
 }

@@ -1540,3 +1540,17 @@ body.login-auth-page {
         min-height: 76px;
     }
 }
+
+.logo-icon img {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    display: block;
+}
+
+.login-icon img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    display: block;
+}
