@@ -2,134 +2,137 @@
 
 @section('content')
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+@php
+    $tanggalLahir = $guru->tanggal_lahir
+        ? \Illuminate\Support\Carbon::parse($guru->tanggal_lahir)->format('d/m/Y')
+        : '-';
 
-    <div>
+    $mulaiMengajar = $guru->mulai_mengajar
+        ? \Illuminate\Support\Carbon::parse($guru->mulai_mengajar)->format('d/m/Y')
+        : '-';
 
-        <h2 class="fw-bold">
-            Detail Guru
-        </h2>
+    $jenisKelamin = match ($guru->jenis_kelamin) {
+        'L' => 'Laki-laki',
+        'P' => 'Perempuan',
+        default => '-',
+    };
+@endphp
 
-        <p class="text-secondary">
-            Informasi lengkap data guru
-        </p>
+<div class="guru-page">
+    <div class="guru-page-heading">
+        <div>
+            <h2>Detail Data Guru</h2>
 
+            <p>
+                Informasi lengkap data guru.
+            </p>
+        </div>
+
+        <div class="guru-heading-actions">
+            <a
+                href="{{ route('guru.index') }}"
+                class="guru-back-button">
+
+                <i class="bi bi-arrow-left"></i>
+                Kembali
+            </a>
+
+        </div>
     </div>
 
-    <a href="{{ route('guru.index') }}" class="btn btn-secondary">
+    <div class="guru-detail-card">
 
-        <i class="bi bi-arrow-left"></i>
+        <div class="guru-detail-body">
+            <div class="guru-detail-section">
+                <h4>Informasi Pribadi</h4>
 
-        Kembali
+                <div class="guru-detail-grid">
+                    <div class="guru-detail-item">
+                        <span>NIY</span>
+                        <strong>{{ $guru->niy ?: '-' }}</strong>
+                    </div>
 
-    </a>
+                    <div class="guru-detail-item">
+                        <span>NIK KTP</span>
+                        <strong>{{ $guru->nik_ktp ?: '-' }}</strong>
+                    </div>
 
-</div>
+                    <div class="guru-detail-item">
+                        <span>Nama Lengkap</span>
+                        <strong>{{ $guru->nama ?: '-' }}</strong>
+                    </div>
 
-<div class="card shadow-sm border-0 rounded-4">
+                    <div class="guru-detail-item">
+                        <span>Jenis Kelamin</span>
+                        <strong>{{ $jenisKelamin }}</strong>
+                    </div>
 
-    <div class="card-body">
+                    <div class="guru-detail-item">
+                        <span>Tempat Lahir</span>
+                        <strong>{{ $guru->tempat_lahir ?: '-' }}</strong>
+                    </div>
 
-        <div class="row">
+                    <div class="guru-detail-item">
+                        <span>Tanggal Lahir</span>
+                        <strong>{{ $tanggalLahir }}</strong>
+                    </div>
 
-            <div class="col-md-6 mb-3">
-                <label class="fw-bold">NIY</label>
-                <div>{{ $guru->niy }}</div>
+                    <div class="guru-detail-item">
+                        <span>Agama</span>
+                        <strong>{{ $guru->agama ?: '-' }}</strong>
+                    </div>
+
+                    <div class="guru-detail-item">
+                        <span>Alamat</span>
+                        <strong>{{ $guru->alamat ?: '-' }}</strong>
+                    </div>
+                </div>
             </div>
 
-            <div class="col-md-6 mb-3">
-                <label class="fw-bold">NIK KTP</label>
-                <div>{{ $guru->nik_ktp }}</div>
-            </div>
+            <div class="guru-detail-divider"></div>
 
-            <div class="col-md-6 mb-3">
-                <label class="fw-bold">Nama</label>
-                <div>{{ $guru->nama }}</div>
-            </div>
+            <div class="guru-detail-section">
+                <h4>Informasi Kepegawaian</h4>
 
-            <div class="col-md-6 mb-3">
-                <label class="fw-bold">Tempat Lahir</label>
-                <div>{{ $guru->tempat_lahir }}</div>
-            </div>
+                <div class="guru-detail-grid">
+                    <div class="guru-detail-item">
+                        <span>Status</span>
+                        <strong>{{ $guru->status ?: '-' }}</strong>
+                    </div>
 
-            <div class="col-md-6 mb-3">
-                <label class="fw-bold">Tanggal Lahir</label>
-                <div>{{ $guru->tanggal_lahir }}</div>
-            </div>
+                    <div class="guru-detail-item">
+                        <span>Golongan</span>
+                        <strong>{{ $guru->golongan ?: '-' }}</strong>
+                    </div>
 
-            <div class="col-md-6 mb-3">
-                <label class="fw-bold">Jenis Kelamin</label>
-                <div>{{ $guru->jenis_kelamin }}</div>
-            </div>
+                    <div class="guru-detail-item">
+                        <span>Pendidikan Terakhir</span>
+                        <strong>{{ $guru->pendidikan ?: '-' }}</strong>
+                    </div>
 
-            <div class="col-md-6 mb-3">
-                <label class="fw-bold">Agama</label>
-                <div>{{ $guru->agama }}</div>
-            </div>
+                    <div class="guru-detail-item">
+                        <span>Jabatan</span>
+                        <strong>{{ $guru->jabatan ?: '-' }}</strong>
+                    </div>
 
-            <div class="col-md-6 mb-3">
-                <label class="fw-bold">Status</label>
-                <div>{{ $guru->status }}</div>
+                    <div class="guru-detail-item">
+                        <span>Mulai Mengajar</span>
+                        <strong>{{ $mulaiMengajar }}</strong>
+                    </div>
+                </div>
             </div>
+        </div>
 
-            <div class="col-md-6 mb-3">
-                <label class="fw-bold">Golongan</label>
-                <div>{{ $guru->golongan }}</div>
-            </div>
+        <div class="guru-detail-footer">
 
-            <div class="col-md-6 mb-3">
-                <label class="fw-bold">Pendidikan</label>
-                <div>{{ $guru->pendidikan }}</div>
-            </div>
+            <a
+                href="{{ route('guru.edit', $guru->id) }}"
+                class="guru-form-save-button">
 
-            <div class="col-md-6 mb-3">
-                <label class="fw-bold">Jabatan</label>
-                <div>{{ $guru->jabatan }}</div>
-            </div>
-
-            <div class="col-md-6 mb-3">
-                <label class="fw-bold">Mulai Mengajar</label>
-                <div>{{ $guru->mulai_mengajar }}</div>
-            </div>
-
-            <div class="col-12">
-                <label class="fw-bold">Alamat</label>
-                <div>{{ $guru->alamat }}</div>
-            </div>
-            <div class="col-md-6 mb-3">
-    <label class="fw-bold">File SK</label>
-
-    @forelse($guru->file_sk ?? [] as $file)
-        <div>
-            <a href="{{ asset('storage/' . $file) }}" target="_blank">
-                <i class="bi bi-file-earmark-text"></i>
-                {{ basename($file) }}
+                Edit Data
             </a>
         </div>
-    @empty
-        <div>-</div>
-    @endforelse
-</div>
-
-<div class="col-md-6 mb-3">
-    <label class="fw-bold">File Piagam / Sertifikat</label>
-
-    @forelse($guru->file_sertifikat ?? [] as $file)
-        <div>
-            <a href="{{ asset('storage/' . $file) }}" target="_blank">
-                <i class="bi bi-award"></i>
-                {{ basename($file) }}
-            </a>
-        </div>
-    @empty
-        <div>-</div>
-    @endforelse
-</div>
-
-        </div>
-
     </div>
-
 </div>
 
 @endsection

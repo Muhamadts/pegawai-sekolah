@@ -43,7 +43,7 @@
 
         <div class="stat-card">
             <div>
-                <span>Status Sistem</span>
+                <span>Status</span>
                 <strong class="text-success">Aktif</strong>
             </div>
             <div class="stat-icon stat-green">

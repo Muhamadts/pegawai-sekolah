@@ -1541,16 +1541,957 @@ body.login-auth-page {
     }
 }
 
-.logo-icon img {
-    width: 38px;
-    height: 38px;
-    object-fit: contain;
+
+/* ===========================================================
+   PROFESSIONAL GURU MODAL
+=========================================================== */
+
+/* Kunci halaman belakang saat modal terbuka */
+
+html.guru-page-locked,
+body.guru-page-locked,
+body.modal-open {
+    height: 100%;
+    overflow: hidden !important;
+    overscroll-behavior: none;
+}
+
+#modalGuru,
+#modalTendik {
+    padding-right: 0 !important;
+    overflow: hidden !important;
+}
+
+html:has(#modalGuru.show),
+body:has(#modalGuru.show),
+html:has(#modalTendik.show),
+body:has(#modalTendik.show) {
+    height: 100%;
+    overflow: hidden !important;
+    overscroll-behavior: none;
+}
+
+/* Posisi modal dibuat lebih ke atas */
+
+.guru-modal-dialog {
+    width: calc(100% - 32px);
+    max-width: 680px;
+    height: calc(100dvh - 40px);
+    max-height: 760px;
+    margin: 20px auto;
+}
+
+.guru-modal-content {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border: 0;
+    border-radius: 15px;
+    background-color: #ffffff;
+    box-shadow:
+        0 28px 70px rgba(15, 23, 42, 0.24),
+        0 8px 24px rgba(15, 23, 42, 0.10);
+}
+
+.guru-modal-form {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Header */
+
+.guru-modal-header {
+    flex: 0 0 72px;
+    min-height: 72px;
+    display: flex;
+    align-items: center;
+    padding: 0 22px;
+    border-bottom: 1px solid #e5e9ef;
+    background-color: #ffffff;
+}
+
+.guru-modal-title {
+    margin: 0;
+    color: #152238;
+    font-size: 21px;
+    line-height: 1.3;
+    font-weight: 700;
+}
+
+.guru-modal-subtitle {
+    display: none;
+}
+
+.guru-modal-close {
+    margin: 0;
+    padding: 9px;
+    border-radius: 8px;
+    box-shadow: none !important;
+}
+
+/* Form menjadi satu-satunya area yang dapat di-scroll */
+
+.guru-modal-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 18px 22px 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: #9ca3af transparent;
+}
+
+.guru-modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.guru-modal-body::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.guru-modal-body::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background-color: #9ca3af;
+}
+
+.guru-modal-body::-webkit-scrollbar-thumb:hover {
+    background-color: #7c8796;
+}
+
+/* Label */
+
+.guru-modal-body .form-label {
     display: block;
+    margin: 0 0 6px;
+    color: #29374d;
+    font-size: 12px;
+    line-height: 1.4;
+    font-weight: 600;
+}
+
+/* Input dan select */
+
+.guru-modal-body .form-control,
+.guru-modal-body .form-select {
+    width: 100%;
+    height: 40px;
+    min-height: 40px;
+    padding: 8px 12px;
+    border: 1px solid #d5dce6;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #172033;
+    font-size: 13px;
+    line-height: 1.4;
+    box-shadow: none;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.guru-modal-body .form-control::placeholder {
+    color: #9aa4b2;
+}
+
+.guru-modal-body .form-control:hover,
+.guru-modal-body .form-select:hover {
+    border-color: #abb6c4;
+}
+
+.guru-modal-body .form-control:focus,
+.guru-modal-body .form-select:focus {
+    border-color: #078b64;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(7, 139, 100, 0.12);
+}
+
+.guru-modal-body textarea.form-control {
+    height: 82px;
+    min-height: 82px;
+    padding-top: 10px;
+    resize: vertical;
+}
+
+/* Tanggal dd/mm/yyyy */
+
+.guru-date-control {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    overflow: hidden;
+    border: 1px solid #d5dce6;
+    border-radius: 8px;
+    background-color: #ffffff;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.guru-date-control:hover {
+    border-color: #abb6c4;
+}
+
+.guru-date-control:focus-within {
+    border-color: #078b64;
+    box-shadow: 0 0 0 3px rgba(7, 139, 100, 0.12);
+}
+
+.guru-date-control.is-invalid {
+    border-color: #dc3545;
+}
+
+.guru-date-display {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    padding: 8px 42px 8px 12px;
+    border: 0;
+    outline: 0;
+    background-color: #ffffff;
+    color: #172033;
+    font-family: inherit;
+    font-size: 13px;
+    pointer-events: none;
+}
+
+.guru-date-display::placeholder {
+    color: #9aa4b2;
+    opacity: 1;
+}
+
+.guru-date-icon {
+    position: absolute;
+    top: 50%;
+    right: 13px;
+    z-index: 2;
+    color: #344054;
+    font-size: 15px;
+    pointer-events: none;
+    transform: translateY(-50%);
+}
+
+.guru-native-date {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Footer */
+
+.guru-modal-footer {
+    flex: 0 0 68px;
+    min-height: 68px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 22px;
+    border-top: 1px solid #e5e9ef;
+    background-color: #ffffff;
+}
+
+/* Tombol */
+
+.guru-modal-button {
+    width: auto;
+    height: 40px;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0 18px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.15s ease;
+}
+
+.guru-modal-button:active {
+    transform: translateY(1px);
+}
+
+.guru-cancel-button {
+    min-width: 82px;
+    border: 1px solid #cbd3df;
+    background-color: #ffffff;
+    color: #344054;
+}
+
+.guru-cancel-button:hover,
+.guru-cancel-button:focus {
+    border-color: #98a3b3;
+    background-color: #f8fafc;
+    color: #172033;
+}
+
+.guru-save-button {
+    min-width: 125px;
+    border: 1px solid #078b64;
+    background-color: #078b64;
+    color: #ffffff;
+}
+
+.guru-save-button:hover,
+.guru-save-button:focus {
+    border-color: #067454;
+    background-color: #067454;
+    color: #ffffff;
+}
+
+/* Background gelap */
+
+.modal-backdrop.show {
+    opacity: 0.52;
+}
+
+/* ===========================================================
+   TABLET
+=========================================================== */
+
+@media (max-width: 991px) {
+    .guru-modal-dialog {
+        max-width: 650px;
+    }
+}
+
+/* ===========================================================
+   MOBILE
+=========================================================== */
+
+@media (max-width: 767px) {
+    .guru-modal-dialog {
+        width: calc(100% - 16px);
+        height: calc(100dvh - 16px);
+        max-height: none;
+        margin: 8px auto;
+    }
+
+    .guru-modal-content {
+        border-radius: 14px;
+    }
+
+    .guru-modal-header {
+        flex-basis: 64px;
+        min-height: 64px;
+        padding: 0 16px;
+    }
+
+    .guru-modal-title {
+        font-size: 18px;
+    }
+
+    .guru-modal-body {
+        padding: 16px;
+        scrollbar-gutter: auto;
+    }
+
+    .guru-modal-body .row {
+        --bs-gutter-y: 14px;
+    }
+
+    .guru-modal-body .form-control,
+    .guru-modal-body .form-select,
+    .guru-date-control {
+        height: 44px;
+        min-height: 44px;
+        font-size: 14px;
+    }
+
+    .guru-date-display {
+        font-size: 14px;
+    }
+
+    .guru-modal-body textarea.form-control {
+        height: 90px;
+        min-height: 90px;
+    }
+
+    .guru-modal-footer {
+        flex-basis: 66px;
+        min-height: 66px;
+        padding: 12px 16px;
+    }
+
+    .guru-modal-footer .guru-modal-button {
+        width: auto !important;
+        height: 42px;
+        min-height: 42px;
+    }
+}
+
+/* ===========================================================
+   SMALL MOBILE
+=========================================================== */
+
+@media (max-width: 420px) {
+    .guru-modal-dialog {
+        width: calc(100% - 10px);
+        height: calc(100dvh - 10px);
+        margin: 5px auto;
+    }
+
+    .guru-modal-content {
+        border-radius: 12px;
+    }
+
+    .guru-modal-header {
+        padding-right: 14px;
+        padding-left: 14px;
+    }
+
+    .guru-modal-body {
+        padding: 14px;
+    }
+
+    .guru-modal-footer {
+        display: grid;
+        grid-template-columns: 1fr 1.35fr;
+        gap: 8px;
+        padding: 11px 14px;
+    }
+
+    .guru-modal-footer .guru-modal-button {
+        width: 100% !important;
+        min-width: 0;
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+}
+
+/* ===========================================================
+   GURU EDIT AND DETAIL PAGE
+=========================================================== */
+
+.guru-page {
+    width: 100%;
+}
+
+.guru-page-heading {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 0 auto 20px;
+}
+
+.guru-page-heading h2 {
+    margin: 0 0 5px;
+    color: #111827;
+    font-size: 27px;
+    line-height: 1.3;
+    font-weight: 700;
+}
+
+.guru-page-heading p {
+    margin: 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.guru-heading-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.guru-back-button,
+.guru-edit-button {
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 9px 15px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.guru-back-button {
+    border: 1px solid #cbd5e1;
+    background-color: #ffffff;
+    color: #334155;
+}
+
+.guru-back-button:hover {
+    border-color: #94a3b8;
+    background-color: #f8fafc;
+    color: #172033;
+}
+
+.guru-edit-button {
+    border: 1px solid #078b64;
+    background-color: #078b64;
+    color: #ffffff;
+}
+
+.guru-edit-button:hover {
+    border-color: #067454;
+    background-color: #067454;
+    color: #ffffff;
+}
+
+/* Edit form */
+
+.guru-form-card {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    overflow: hidden;
+    border: 1px solid #e5e9ef;
+    border-radius: 16px;
+    background-color: #ffffff;
+    box-shadow:
+        0 16px 38px rgba(15, 23, 42, 0.08),
+        0 4px 12px rgba(15, 23, 42, 0.04);
+}
+
+.guru-edit-form {
+    width: 100%;
+}
+
+.guru-form-header {
+    padding: 20px 24px 18px;
+    border-bottom: 1px solid #e5e9ef;
+}
+
+.guru-form-header h3 {
+    margin: 0 0 4px;
+    color: #152238;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.guru-form-header p {
+    margin: 0;
+    color: #718096;
+    font-size: 12px;
+}
+
+.guru-form-body {
+    padding: 22px 24px;
+}
+
+.guru-form-body .form-label {
+    display: block;
+    margin: 0 0 6px;
+    color: #29374d;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.guru-form-body .form-control,
+.guru-form-body .form-select {
+    width: 100%;
+    height: 42px;
+    min-height: 42px;
+    padding: 8px 12px;
+    border: 1px solid #d5dce6;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #172033;
+    font-size: 13px;
+    box-shadow: none;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.guru-form-body .form-control::placeholder {
+    color: #9aa4b2;
+}
+
+.guru-form-body .form-control:focus,
+.guru-form-body .form-select:focus {
+    border-color: #078b64;
+    box-shadow: 0 0 0 3px rgba(7, 139, 100, 0.12);
+}
+
+.guru-form-body textarea.form-control {
+    height: 88px;
+    min-height: 88px;
+    padding-top: 10px;
+    resize: vertical;
+}
+
+.guru-form-body .guru-date-control {
+    height: 42px;
+}
+
+.guru-form-footer,
+.guru-detail-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 14px 24px;
+    border-top: 1px solid #e5e9ef;
+    background-color: #ffffff;
+}
+
+.guru-form-cancel-button,
+.guru-form-save-button {
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.guru-form-cancel-button {
+    min-width: 82px;
+    border: 1px solid #cbd3df;
+    background-color: #ffffff;
+    color: #344054;
+}
+
+.guru-form-cancel-button:hover {
+    border-color: #98a3b3;
+    background-color: #f8fafc;
+    color: #172033;
+}
+
+.guru-form-save-button {
+    min-width: 130px;
+    border: 1px solid #078b64;
+    background-color: #078b64;
+    color: #ffffff;
+}
+
+.guru-form-save-button:hover {
+    border-color: #067454;
+    background-color: #067454;
+    color: #ffffff;
+}
+
+/* Detail guru */
+
+.guru-detail-card {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    overflow: hidden;
+    border: 1px solid #e5e9ef;
+    border-radius: 16px;
+    background-color: #ffffff;
+    box-shadow:
+        0 16px 38px rgba(15, 23, 42, 0.08),
+        0 4px 12px rgba(15, 23, 42, 0.04);
+}
+
+.guru-detail-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 22px 24px;
+    border-bottom: 1px solid #e5e9ef;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(7, 139, 100, 0.08),
+            rgba(7, 139, 100, 0.02)
+        );
+}
+
+.guru-detail-avatar {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #078b64;
+    color: #ffffff;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.guru-detail-identity {
+    min-width: 0;
+    flex: 1;
+}
+
+.guru-detail-identity h3 {
+    margin: 0 0 4px;
+    color: #152238;
+    font-size: 19px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.guru-detail-identity p {
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.guru-status-badge {
+    flex-shrink: 0;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background-color: #dff7ed;
+    color: #067454;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.guru-detail-body {
+    padding: 24px;
+}
+
+.guru-detail-section h4 {
+    margin: 0 0 17px;
+    color: #152238;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.guru-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 26px;
+}
+
+.guru-detail-item {
+    min-width: 0;
+}
+
+.guru-detail-item span {
+    display: block;
+    margin-bottom: 5px;
+    color: #718096;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.guru-detail-item strong {
+    display: block;
+    color: #243047;
+    font-size: 13px;
+    line-height: 1.5;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.guru-detail-divider {
+    height: 1px;
+    margin: 24px 0;
+    background-color: #e5e9ef;
+}
+
+/* ===========================================================
+   RESPONSIVE EDIT AND DETAIL
+=========================================================== */
+
+@media (max-width: 767px) {
+    .guru-page-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        margin-bottom: 16px;
+    }
+
+    .guru-page-heading h2 {
+        font-size: 23px;
+    }
+
+    .guru-heading-actions {
+        width: 100%;
+    }
+
+    .guru-heading-actions .guru-back-button,
+    .guru-heading-actions .guru-edit-button {
+        flex: 1;
+    }
+
+    .guru-page-heading > .guru-back-button {
+        width: 100%;
+    }
+
+    .guru-form-card,
+    .guru-detail-card {
+        border-radius: 14px;
+    }
+
+    .guru-form-header {
+        padding: 17px 18px 15px;
+    }
+
+    .guru-form-body {
+        padding: 18px;
+    }
+
+    .guru-form-body .form-control,
+    .guru-form-body .form-select,
+    .guru-form-body .guru-date-control {
+        height: 44px;
+        min-height: 44px;
+        font-size: 14px;
+    }
+
+    .guru-form-footer,
+    .guru-detail-footer {
+        padding: 13px 18px;
+    }
+
+    .guru-detail-header {
+        padding: 18px;
+    }
+
+    .guru-detail-body {
+        padding: 18px;
+    }
+
+    .guru-detail-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 420px) {
+    .guru-heading-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .guru-form-footer,
+    .guru-detail-footer {
+        display: grid;
+        grid-template-columns: 1fr 1.35fr;
+        gap: 8px;
+        padding: 12px 14px;
+    }
+
+    .guru-form-cancel-button,
+    .guru-form-save-button {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .guru-detail-header {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .guru-status-badge {
+        margin-left: 66px;
+    }
+}
+
+/* ===========================================================
+   HILANGKAN SCROLLBAR LUAR MODAL TENDIK
+=========================================================== */
+
+#modalTendik {
+    padding-right: 0 !important;
+    overflow: hidden !important;
+}
+
+html:has(#modalTendik.show),
+body:has(#modalTendik.show) {
+    height: 100%;
+    overflow: hidden !important;
+    overscroll-behavior: none;
+}
+
+/* ===========================================================
+   PERBAIKAN LOGO LOGIN DAN SIDEBAR
+=========================================================== */
+
+/* Logo pada halaman login */
+
+.login-icon {
+    width: auto;
+    height: auto;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0;
+    background: transparent;
 }
 
 .login-icon img {
-    width: 48px;
-    height: 48px;
-    object-fit: contain;
+    width: 82px;
+    height: auto;
     display: block;
+    object-fit: contain;
+    border-radius: 0;
+    background: transparent;
+    mix-blend-mode: normal;
+    filter: none;
+    opacity: 1;
+}
+
+/* Logo setelah login pada sidebar */
+
+.logo-icon {
+    width: 62px;
+    height: auto;
+    min-width: 62px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0;
+    background: transparent;
+}
+
+.logo-icon img {
+    width: 62px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    border-radius: 0;
+    background: transparent;
+    mix-blend-mode: normal;
+    filter: none;
+    opacity: 1;
+}
+
+/* Responsive mobile */
+
+@media (max-width: 767px) {
+    .login-icon img {
+        width: 72px;
+    }
+
+    .logo-icon,
+    .logo-icon img {
+        width: 56px;
+        min-width: 56px;
+    }
 }
