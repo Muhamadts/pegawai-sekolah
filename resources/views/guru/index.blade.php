@@ -7,7 +7,7 @@
         <h2 class="fw-bold mb-1">Data Guru</h2>
 
         <p class="text-secondary mb-0">
-            Kelola data guru SD Plus IGM Palembang
+            Kelola data guru SD Plus Indo Global Mandiri Palembang
         </p>
     </div>
 

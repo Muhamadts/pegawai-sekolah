@@ -103,7 +103,7 @@
 
             <h2 class="fw-bold">
 
-                SD PLUS IGM PALEMBANG
+                SD PLUS Indo Global Mandiri PALEMBANG
 
             </h2>
 

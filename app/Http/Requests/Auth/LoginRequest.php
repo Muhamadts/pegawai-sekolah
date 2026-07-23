@@ -26,28 +26,38 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email'],
+            'username' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string'],
-            'role' => ['required', 'string', Rule::in(['admin', 'guru_tendik', 'kepsek'])],
+            'role' => [
+                'required',
+                'string',
+                Rule::in(['admin', 'guru_tendik', 'kepsek']),
+            ],
         ];
     }
 
     /**
+     * Memeriksa username, password, dan role yang dipilih.
+     *
      * @throws ValidationException
      */
     public function authenticate(): void
     {
         $this->ensureIsNotRateLimited();
 
-        $user = User::where('email', $this->input('email'))
-            ->where('role', $this->input('role'))
+        $user = User::query()
+            ->where('username', $this->string('username')->toString())
+            ->where('role', $this->string('role')->toString())
             ->first();
 
-        if (! $user || ! Hash::check($this->input('password'), $user->password)) {
+        if (
+            ! $user ||
+            ! Hash::check($this->string('password')->toString(), $user->password)
+        ) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'role' => 'Email, password, atau role yang dipilih tidak sesuai.',
+                'role' => 'Username, password, atau role yang dipilih tidak sesuai.',
             ]);
         }
 
@@ -57,6 +67,8 @@ class LoginRequest extends FormRequest
     }
 
     /**
+     * Membatasi percobaan login maksimal lima kali.
+     *
      * @throws ValidationException
      */
     public function ensureIsNotRateLimited(): void
@@ -70,17 +82,22 @@ class LoginRequest extends FormRequest
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'email' => trans('auth.throttle', [
+            'username' => trans('auth.throttle', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
             ]),
         ]);
     }
 
+    /**
+     * Kunci pembatasan login berdasarkan username, role, dan alamat IP.
+     */
     public function throttleKey(): string
     {
         return Str::transliterate(
-            Str::lower($this->string('email')).'|'.$this->input('role').'|'.$this->ip()
+            Str::lower($this->string('username')->toString())
+            .'|'.$this->string('role')->toString()
+            .'|'.$this->ip()
         );
     }
 }

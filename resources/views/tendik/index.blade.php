@@ -9,7 +9,7 @@
         </h2>
 
         <p class="text-secondary mb-0">
-            Kelola data tendik SD Plus IGM Palembang
+            Kelola data tendik SD Plus Indo Global Mandiri Palembang
         </p>
     </div>
 
