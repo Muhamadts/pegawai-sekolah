@@ -57,11 +57,11 @@
     <div class="sidebar-header">
         <div class="logo">
             <div class="logo-icon">
-                 <img src="{{ asset('images/logo.jpg') }}" alt="Logo SD Plus IGM">
+                 <img src="{{ asset('images/logo.jpg') }}" alt="Logo SD Plus Indo Global Mandiri">
             </div>
 
             <div>
-                <h5>SD Plus IGM</h5>
+                <h5>SD Plus Indo Global Mandiri</h5>
                 <small>Palembang</small>
             </div>
         </div>

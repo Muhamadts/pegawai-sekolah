@@ -24,7 +24,7 @@
                 <div class="login-icon">
                     <img
                         src="{{ asset('images/logo.jpg') }}"
-                        alt="Logo SD Plus IGM"
+                        alt="Logo SD Plus Indo Global Mandiri"
                     >
                 </div>
 

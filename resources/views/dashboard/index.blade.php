@@ -6,7 +6,7 @@
 
     <div class="page-heading">
         <h2>Selamat Datang</h2>
-        <p>Kelola data kepegawaian SD Plus IGM Palembang dengan mudah</p>
+        <p>Kelola data kepegawaian SD Plus Indo Global Mandiri Palembang dengan mudah</p>
     </div>
 
     <div class="dashboard-stats">

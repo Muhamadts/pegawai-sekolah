@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>SD Plus IGM Palembang</title>
+    <title>SD Plus Indo Global Mandiri Palembang</title>
 
     @vite([
         'resources/css/app.css',
